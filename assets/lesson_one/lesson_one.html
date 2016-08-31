@@ -1,0 +1,153 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+     
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    
+<head>   
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/dark1/css/style.css?v=1.1" />
+ <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/x605940745/rss/list" />
+ <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico" />
+ <link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default.css" />
+</head>    
+<h5><strong>SimpleAdapter基本上认知了其参数含义 用起来就简单多了</strong></h5>
+<h5><strong>SimpleAdapter的参数说明</strong></h5>
+<span style="white-space:pre"></span>&nbsp;第一个参数 表示访问整个android应用程序接口，基本上所有的组件都需要<br>
+<span style="white-space:pre"></span>&nbsp;第二个参数表示生成一个Map(String ,Object)列表选项<br>
+<span style="white-space:pre"></span>&nbsp;第三个参数表示界面布局的id &nbsp;表示该文件作为列表项的组件<br>
+<span style="white-space:pre"></span>&nbsp;第四个参数表示该Map对象的哪些key对应value来生成列表项<br>
+<span style="white-space:pre"></span>&nbsp;第五个参数表示来填充的组件 Map对象key对应的资源一依次填充组件 顺序有对应关系<br>
+<span style="white-space:pre"></span>&nbsp;注意的是map对象可以key可以找不到 但组件的必须要有资源填充 &nbsp;因为 找不到key也会返回null 其实就相当于给了一个null资源<br>
+<span style="white-space:pre"></span>&nbsp;下面的程序中如果 new String[] { &quot;name&quot;, &quot;head&quot;, &quot;desc&quot;,&quot;name&quot; } new int[] {R.id.name,R.id.head,R.id.desc,R.id.head}<br>
+<span style="white-space:pre"></span>这个head的组件会被name资源覆盖<br>
+<p></p>
+<p><br>
+</p>
+<h5>代码</h5>
+<p></p>
+<pre code_snippet_id="558579" snippet_file_name="blog_20141222_1_8304128"  code_snippet_id="558579" snippet_file_name="blog_20141222_1_8304128" name="code" class="html">&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:orientation=&quot;horizontal&quot;
+    tools:context=&quot;.MainActivity&quot; &gt;
+
+    &lt;ListView
+        android:id=&quot;@+id/lt1&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot; &gt;
+    &lt;/ListView&gt;
+
+&lt;/LinearLayout&gt;</pre><br>
+<pre code_snippet_id="558579" snippet_file_name="blog_20141222_2_5399637"  code_snippet_id="558579" snippet_file_name="blog_20141222_2_5399637" name="code" class="html">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:orientation=&quot;horizontal&quot; &gt;
+
+    &lt;ImageView
+        android:id=&quot;@+id/head&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:paddingLeft=&quot;10dp&quot; /&gt;
+
+    &lt;LinearLayout
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:orientation=&quot;vertical&quot; &gt;
+        
+        &lt;TextView 
+            android:id=&quot;@+id/name&quot;
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:textSize=&quot;20dp&quot;
+            android:textColor=&quot;#f0f&quot;
+            android:paddingLeft=&quot;10dp&quot;/&gt;
+        
+                
+        &lt;TextView 
+            android:id=&quot;@+id/desc&quot;
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:textSize=&quot;14dp&quot;
+            android:paddingLeft=&quot;10dp&quot;/&gt;
+        
+    &lt;/LinearLayout&gt;
+
+&lt;/LinearLayout&gt;</pre><br>
+<br>
+<p></p>
+<pre code_snippet_id="558579" snippet_file_name="blog_20141222_3_3773059"  code_snippet_id="558579" snippet_file_name="blog_20141222_3_3773059" name="code" class="java">package com.example.simpleadptertest;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+
+public class MainActivity extends Activity {
+
+	private String[] name = { &quot;剑萧舞蝶&quot;, &quot;张三&quot;, &quot;hello&quot;, &quot;诗情画意&quot; };
+
+	private String[] desc = { &quot;魔域玩家&quot;, &quot;百家执行&quot;, &quot;高级的富一代&quot;, &quot;妹子请过来..一个善于跑妹子的。。&quot; };
+
+	private int[] imageids = { R.drawable.libai, R.drawable.nongyu,
+			R.drawable.qingzhao, R.drawable.tiger };
+	
+	private ListView lt1;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		List&lt;Map&lt;String, Object&gt;&gt; listems = new ArrayList&lt;Map&lt;String, Object&gt;&gt;();
+		for (int i = 0; i &lt; name.length; i++) {
+			Map&lt;String, Object&gt; listem = new HashMap&lt;String, Object&gt;();
+			listem.put(&quot;head&quot;, imageids[i]);
+			listem.put(&quot;name&quot;, name[i]);
+			listem.put(&quot;desc&quot;, desc[i]);
+			listems.add(listem);
+		}
+		
+		/*SimpleAdapter的参数说明
+		 * 第一个参数 表示访问整个android应用程序接口，基本上所有的组件都需要
+		 * 第二个参数表示生成一个Map(String ,Object)列表选项
+		 * 第三个参数表示界面布局的id  表示该文件作为列表项的组件
+		 * 第四个参数表示该Map对象的哪些key对应value来生成列表项
+		 * 第五个参数表示来填充的组件 Map对象key对应的资源一依次填充组件 顺序有对应关系
+		 * 注意的是map对象可以key可以找不到 但组件的必须要有资源填充  因为 找不到key也会返回null 其实就相当于给了一个null资源
+		 * 下面的程序中如果 new String[] { &quot;name&quot;, &quot;head&quot;, &quot;desc&quot;,&quot;name&quot; } new int[] {R.id.name,R.id.head,R.id.desc,R.id.head}
+		 * 这个head的组件会被name资源覆盖
+		 * */
+		SimpleAdapter simplead = new SimpleAdapter(this, listems,
+				R.layout.simple_item, new String[] { &quot;name&quot;, &quot;head&quot;, &quot;desc&quot; },
+				new int[] {R.id.name,R.id.head,R.id.desc});
+		
+		lt1=(ListView)findViewById(R.id.lt1);
+		lt1.setAdapter(simplead);
+		
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+}
+</pre><br>
+<p></p>
+<p><br>
+</p>
+   
+</div>
+</body>
+</html>   
+ 

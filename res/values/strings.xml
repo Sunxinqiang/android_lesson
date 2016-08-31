@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">lessonProgram</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="tempValue">temp</string>
+    <string name="lesson_one_text"><h5><strong>SimpleAdapter的参数说明</strong></h5>
+		<span style="white-space:pre"></span> 第一个参数 表示访问整个android应用程序接口，基本上所有的组件都需要
+		<span style="white-space:pre"></span> 第二个参数表示生成一个Map(String ,Object)列表选项
+		<span style="white-space:pre"></span> 第三个参数表示界面布局的id  表示该文件作为列表项的组件
+		<span style="white-space:pre"></span> 第四个参数表示该Map对象的哪些key对应value来生成列表项
+		<span style="white-space:pre"></span> 第五个参数表示来填充的组件 Map对象key对应的资源一依次填充组件 顺序有对应关系
+		<span style="white-space:pre"></span> 注意的是map对象可以key可以找不到 但组件的必须要有资源填充  因为 找不到key也会返回null 其实就相当于给了一个null资源
+		<span style="white-space:pre"></span> 下面的程序中如果 new String[] { "name", "head", "desc","name" } new int[] {R.id.name,R.id.head,R.id.desc,R.id.head}
+	</string>
+
+</resources>
